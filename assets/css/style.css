@@ -501,6 +501,44 @@ h4 { font-size: 1.35rem; }
     font-size: 1.75rem;
 }
 
+/* --- Gallery Filters --- */
+.gallery-filters {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.6rem;
+    margin-bottom: 2rem;
+}
+
+.gallery-filter-btn {
+    background: transparent;
+    border: 2px solid var(--color-gold);
+    color: var(--color-maroon);
+    font-family: var(--font-body);
+    font-weight: 500;
+    font-size: 0.9rem;
+    padding: 0.4rem 1.25rem;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--transition-base);
+}
+
+.gallery-filter-btn:hover {
+    background-color: rgba(201, 162, 39, 0.15);
+    color: var(--color-maroon);
+}
+
+.gallery-filter-btn.active {
+    background-color: var(--color-saffron);
+    border-color: var(--color-saffron);
+    color: var(--color-white);
+    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.3);
+}
+
+.gallery-item.hidden {
+    display: none !important;
+}
+
 /* --- Timeline (History Page) --- */
 .timeline-vertical {
     position: relative;
