@@ -301,8 +301,8 @@
             { c1: '#c9a227', c2: '#e6a800' },   // Temple gold
         ];
 
-        var maxPetals = 20;
-        var petalInterval = 2500;
+        var maxPetals = 25;
+        var petalInterval = 2000;
 
         function createPetal() {
             if (petalsContainer.children.length >= maxPetals) {
@@ -318,7 +318,7 @@
 
             // Random properties
             var colorSet = petalColors[Math.floor(Math.random() * petalColors.length)];
-            var size = 8 + Math.random() * 14;
+            var size = 14 + Math.random() * 18;
             var leftPos = Math.random() * 100;
             var duration = 8 + Math.random() * 7;
             var drift = -60 + Math.random() * 120;
@@ -350,12 +350,12 @@
             }, duration * 1000 + 500);
         }
 
-        // Start with a few petals
+        // Start with a burst of petals
         setTimeout(function () {
-            for (var i = 0; i < 5; i++) {
-                setTimeout(createPetal, i * 600);
+            for (var i = 0; i < 8; i++) {
+                setTimeout(createPetal, i * 400);
             }
-        }, 1500);
+        }, 1200);
 
         // Continue generating petals
         setInterval(createPetal, petalInterval);

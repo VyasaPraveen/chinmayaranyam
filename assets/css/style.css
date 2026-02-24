@@ -1353,14 +1353,13 @@ h4 { font-size: 1.35rem; }
     width: 100%;
     height: 100%;
     pointer-events: none;
-    z-index: 999;
+    z-index: 1040;
     overflow: hidden;
 }
 
 .petal {
     position: absolute;
-    top: -40px;
-    opacity: 0;
+    top: -20px;
     pointer-events: none;
 }
 
@@ -1369,26 +1368,26 @@ h4 { font-size: 1.35rem; }
     height: 100%;
     border-radius: 50% 0 50% 0;
     background: linear-gradient(135deg, var(--petal-color-1, #f4a261) 0%, var(--petal-color-2, #e76f51) 100%);
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
 }
 
 @keyframes petalFall {
     0% {
         opacity: 0;
-        transform: translateX(0) translateY(0) rotate(0deg) scale(0.6);
+        transform: translateX(0) translateY(0) rotate(0deg) scale(0.8);
     }
-    10% {
-        opacity: 0.85;
+    8% {
+        opacity: 1;
     }
     50% {
-        opacity: 0.7;
+        opacity: 0.9;
     }
-    90% {
-        opacity: 0.3;
+    85% {
+        opacity: 0.5;
     }
     100% {
         opacity: 0;
-        transform: translateX(var(--petal-drift, 80px)) translateY(100vh) rotate(var(--petal-rotate, 720deg)) scale(0.4);
+        transform: translateX(var(--petal-drift, 80px)) translateY(100vh) rotate(var(--petal-rotate, 720deg)) scale(0.5);
     }
 }
 
@@ -1465,5 +1464,5 @@ h4 { font-size: 1.35rem; }
     .hero-home h1 { font-size: 1.85rem; letter-spacing: 0.03em; }
     .hero-inner h1 { font-size: 1.75rem; }
     .bank-details-card .bank-header .icon { font-size: 2rem; }
-    .petal { opacity: 0.5 !important; }
+    .petals-container { z-index: 900; }
 }
