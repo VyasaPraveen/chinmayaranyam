@@ -1,0 +1,45 @@
+:root {
+    /* Brand Colors */
+    --color-saffron: #E67E22;
+    --color-saffron-light: #F0A04B;
+    --color-saffron-dark: #C96A12;
+    --color-gold: #C9A227;
+    --color-gold-light: #D4B94E;
+    --color-gold-dark: #A88520;
+    --color-cream: #FAF3E0;
+    --color-cream-dark: #F0E6C8;
+    --color-maroon: #7B241C;
+    --color-maroon-light: #943126;
+    --color-maroon-dark: #5B1A14;
+
+    /* Neutral Colors */
+    --color-white: #FFFFFF;
+    --color-black: #1A1A1A;
+    --color-gray-100: #F8F9FA;
+    --color-gray-300: #DEE2E6;
+    --color-gray-600: #6C757D;
+    --color-gray-800: #343A40;
+
+    /* Typography */
+    --font-heading: 'Cinzel', 'Playfair Display', Georgia, serif;
+    --font-heading-alt: 'Playfair Display', Georgia, serif;
+    --font-body: 'Poppins', 'Lato', sans-serif;
+    --font-body-alt: 'Lato', sans-serif;
+
+    /* Spacing */
+    --section-py: 5rem;
+    --section-py-sm: 3rem;
+
+    /* Transitions */
+    --transition-base: all 0.3s ease;
+
+    /* Shadows */
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+    --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+    --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+}

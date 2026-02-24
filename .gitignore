@@ -1,0 +1,17 @@
+# IDE / Editor
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude / AI tools
+.claude/
+.qodo/
+
+# OS files
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Node (if added later)
+node_modules/
