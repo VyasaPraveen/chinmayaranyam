@@ -281,6 +281,91 @@
         }
     })();
 
+    // --- Falling Flower Petals ---
+    (function initFallingPetals() {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+        // Create petals container
+        var petalsContainer = document.createElement('div');
+        petalsContainer.className = 'petals-container';
+        petalsContainer.setAttribute('aria-hidden', 'true');
+        document.body.appendChild(petalsContainer);
+
+        // Petal color palettes (spiritual flowers: marigold, rose, lotus tones)
+        var petalColors = [
+            { c1: '#f4a261', c2: '#e76f51' },   // Marigold orange
+            { c1: '#e9c46a', c2: '#f4a261' },   // Golden yellow
+            { c1: '#f2a2b5', c2: '#e07a9a' },   // Rose pink
+            { c1: '#ffb347', c2: '#ff6f3c' },   // Deep marigold
+            { c1: '#f7c59f', c2: '#e8a87c' },   // Soft peach
+            { c1: '#c9a227', c2: '#e6a800' },   // Temple gold
+        ];
+
+        var maxPetals = 20;
+        var petalInterval = 2500;
+
+        function createPetal() {
+            if (petalsContainer.children.length >= maxPetals) {
+                var oldest = petalsContainer.querySelector('.petal');
+                if (oldest) oldest.remove();
+            }
+
+            var petal = document.createElement('div');
+            petal.className = 'petal';
+
+            var shape = document.createElement('div');
+            shape.className = 'petal-shape';
+
+            // Random properties
+            var colorSet = petalColors[Math.floor(Math.random() * petalColors.length)];
+            var size = 8 + Math.random() * 14;
+            var leftPos = Math.random() * 100;
+            var duration = 8 + Math.random() * 7;
+            var drift = -60 + Math.random() * 120;
+            var rotation = 360 + Math.random() * 720;
+            var swaySpeed = 2 + Math.random() * 3;
+
+            petal.style.left = leftPos + '%';
+            petal.style.width = size + 'px';
+            petal.style.height = size * 0.7 + 'px';
+            petal.style.setProperty('--petal-duration', duration + 's');
+            petal.style.setProperty('--petal-drift', drift + 'px');
+            petal.style.setProperty('--petal-rotate', rotation + 'deg');
+            petal.style.setProperty('--petal-sway', swaySpeed + 's');
+
+            shape.style.setProperty('--petal-color-1', colorSet.c1);
+            shape.style.setProperty('--petal-color-2', colorSet.c2);
+
+            petal.appendChild(shape);
+            petalsContainer.appendChild(petal);
+
+            // Trigger animation
+            requestAnimationFrame(function () {
+                petal.classList.add('falling');
+            });
+
+            // Remove after animation
+            setTimeout(function () {
+                if (petal.parentNode) petal.remove();
+            }, duration * 1000 + 500);
+        }
+
+        // Start with a few petals
+        setTimeout(function () {
+            for (var i = 0; i < 5; i++) {
+                setTimeout(createPetal, i * 600);
+            }
+        }, 1500);
+
+        // Continue generating petals
+        setInterval(createPetal, petalInterval);
+
+        // Pause petals when page is not visible
+        document.addEventListener('visibilitychange', function () {
+            petalsContainer.style.display = document.hidden ? 'none' : '';
+        });
+    })();
+
     // --- Copy to clipboard (for contribute page bank details) ---
     window.copyToClipboard = function (text, btn) {
         navigator.clipboard.writeText(text).then(function () {

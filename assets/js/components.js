@@ -61,15 +61,12 @@
 
     /**
      * Initialize Bootstrap components in dynamically loaded content
+     * Note: Bootstrap 5 uses document-level event delegation for dropdowns
+     * and offcanvas, so most components work automatically with dynamic content.
+     * We only need to explicitly initialize dropdowns as a safety measure.
      */
     function initBootstrapComponents(container) {
-        // Initialize offcanvas
-        var offcanvasEl = container.querySelector('#navbarOffcanvas');
-        if (offcanvasEl) {
-            new bootstrap.Offcanvas(offcanvasEl);
-        }
-
-        // Initialize all dropdowns
+        // Initialize all dropdowns explicitly for dynamically loaded content
         var dropdownEls = container.querySelectorAll('[data-bs-toggle="dropdown"]');
         dropdownEls.forEach(function (el) {
             new bootstrap.Dropdown(el);

@@ -106,7 +106,7 @@ h4 { font-size: 1.35rem; }
     color: var(--color-gold) !important;
 }
 
-.navbar-chinmaya .nav-link.active::after {
+.navbar-chinmaya .nav-link.active:not(.dropdown-toggle)::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -117,11 +117,27 @@ h4 { font-size: 1.35rem; }
     border-radius: 1px;
 }
 
+.navbar-chinmaya .dropdown-toggle::after {
+    border-top-color: var(--color-cream);
+    transition: transform 0.3s ease;
+}
+
+.navbar-chinmaya .dropdown-toggle:hover::after,
+.navbar-chinmaya .dropdown-toggle.active::after {
+    border-top-color: var(--color-gold);
+}
+
+.navbar-chinmaya .dropdown-toggle[aria-expanded="true"]::after {
+    transform: rotate(180deg);
+}
+
 .navbar-chinmaya .dropdown-menu {
     background-color: var(--color-maroon-dark);
     border: 1px solid rgba(201, 162, 39, 0.2);
     border-radius: var(--radius-md);
     padding: 0.5rem 0;
+    z-index: 1060;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
 }
 
 .navbar-chinmaya .dropdown-item {
@@ -1269,7 +1285,7 @@ h4 { font-size: 1.35rem; }
                 background-color 0.4s ease;
 }
 
-.navbar-chinmaya .nav-link::after {
+.navbar-chinmaya .nav-link:not(.dropdown-toggle)::after {
     content: '';
     position: absolute;
     bottom: 0;
@@ -1283,12 +1299,73 @@ h4 { font-size: 1.35rem; }
     transform-origin: center;
 }
 
-.navbar-chinmaya .nav-link:hover::after {
+.navbar-chinmaya .nav-link:not(.dropdown-toggle):hover::after {
     transform: scaleX(1);
 }
 
-.navbar-chinmaya .nav-link.active::after {
+.navbar-chinmaya .nav-link.active:not(.dropdown-toggle)::after {
     transform: scaleX(1);
+}
+
+/* === FALLING FLOWER PETALS === */
+.petals-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 999;
+    overflow: hidden;
+}
+
+.petal {
+    position: absolute;
+    top: -40px;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.petal-shape {
+    width: 100%;
+    height: 100%;
+    border-radius: 50% 0 50% 0;
+    background: linear-gradient(135deg, var(--petal-color-1, #f4a261) 0%, var(--petal-color-2, #e76f51) 100%);
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+}
+
+@keyframes petalFall {
+    0% {
+        opacity: 0;
+        transform: translateX(0) translateY(0) rotate(0deg) scale(0.6);
+    }
+    10% {
+        opacity: 0.85;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    90% {
+        opacity: 0.3;
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(var(--petal-drift, 80px)) translateY(100vh) rotate(var(--petal-rotate, 720deg)) scale(0.4);
+    }
+}
+
+@keyframes petalSway {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(15px); }
+    75% { transform: translateX(-15px); }
+}
+
+.petal.falling {
+    animation: petalFall var(--petal-duration, 10s) linear forwards;
+}
+
+.petal .petal-shape {
+    animation: petalSway var(--petal-sway, 3s) ease-in-out infinite;
 }
 
 /* === ACCESSIBILITY: REDUCED MOTION === */
@@ -1300,6 +1377,7 @@ h4 { font-size: 1.35rem; }
     }
     .hero-home { animation: none; background-size: cover; }
     .particle { display: none; }
+    .petals-container { display: none; }
     .preloader { display: none; }
     .heading-decorated::after { transform: scaleX(1); }
 }
@@ -1349,4 +1427,5 @@ h4 { font-size: 1.35rem; }
     .hero-home h1 { font-size: 1.85rem; letter-spacing: 0.03em; }
     .hero-inner h1 { font-size: 1.75rem; }
     .bank-details-card .bank-header .icon { font-size: 2rem; }
+    .petal { opacity: 0.5 !important; }
 }
