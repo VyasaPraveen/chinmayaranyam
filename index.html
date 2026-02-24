@@ -33,10 +33,43 @@
     <!-- Navbar -->
     <div id="navbar-placeholder"></div>
 
-    <!-- ===== HERO SECTION ===== -->
-    <section class="hero-home" style="background: linear-gradient(135deg, #7B241C 0%, #5B1A14 40%, #943126 70%, #E67E22 100%);">
-        <div class="hero-overlay" style="background: linear-gradient(135deg, rgba(123,36,28,0.6) 0%, rgba(91,26,20,0.4) 50%, rgba(230,126,34,0.2) 100%);"></div>
+    <!-- ===== HERO SECTION WITH CAROUSEL ===== -->
+    <section class="hero-home">
+        <!-- Background Image Carousel -->
+        <div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="5000" data-bs-pause="false">
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+                <button type="button" data-bs-target="#heroCarousel" data-bs-slide-to="4" aria-label="Slide 5"></button>
+            </div>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="hero-slide" style="background-image: url('assets/images/ashramam/ashram-ceremony-hall.jpg');"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="hero-slide" style="background-image: url('assets/images/ashramam/ashram-garden.jpg');"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="hero-slide" style="background-image: url('assets/images/gurudev-visits/swami-stage.jpg');"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="hero-slide" style="background-image: url('assets/images/campus/campus-courtyard.jpg');"></div>
+                </div>
+                <div class="carousel-item">
+                    <div class="hero-slide" style="background-image: url('assets/images/ashramam/devotees-procession-group.jpg');"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dark overlay -->
+        <div class="hero-overlay"></div>
+
+        <!-- Particles -->
         <div class="particles-container" aria-hidden="true"></div>
+
+        <!-- Hero Content (stays fixed over carousel) -->
         <div class="hero-content text-center px-3">
             <span class="om-symbol" data-aos="fade-down">&#x0950;</span>
             <h1 data-aos="fade-up" data-aos-delay="200">Chinmayaranyam</h1>
@@ -55,6 +88,8 @@
                 </a>
             </div>
         </div>
+
+        <!-- Scroll indicator -->
         <a href="#about-snippet" class="scroll-indicator" aria-label="Scroll down">
             <i class="bi bi-chevron-double-down"></i>
         </a>
