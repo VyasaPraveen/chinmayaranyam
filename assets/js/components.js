@@ -5,14 +5,22 @@
 (function () {
     'use strict';
 
-    // Determine base path based on page depth
-    const pathParts = window.location.pathname.replace(/\/+$/, '').split('/').filter(Boolean);
-    const fileName = pathParts[pathParts.length - 1] || 'index.html';
+    // Detect base path reliably from the script's own src attribute
+    // Root pages load: "assets/js/components.js" → basePath = "."
+    // Subfolder pages load: "../assets/js/components.js" → basePath = ".."
+    var scripts = document.getElementsByTagName('script');
+    var basePath = '.';
+    for (var i = 0; i < scripts.length; i++) {
+        var src = scripts[i].getAttribute('src') || '';
+        if (src.indexOf('components.js') !== -1) {
+            basePath = src.indexOf('../') === 0 ? '..' : '.';
+            break;
+        }
+    }
 
-    // Check if we're in a subfolder (what-we-do/ or about/)
-    const isSubfolder = pathParts.length >= 2 &&
-        (pathParts[pathParts.length - 2] === 'what-we-do' || pathParts[pathParts.length - 2] === 'about');
-    const basePath = isSubfolder ? '..' : '.';
+    // Get current filename for active nav detection
+    var pathParts = window.location.pathname.replace(/\/+$/, '').split('/').filter(Boolean);
+    var fileName = pathParts[pathParts.length - 1] || 'index.html';
 
     /**
      * Resolve all data-link attributes to correct relative paths
@@ -27,10 +35,8 @@
      * Set active nav item based on current page URL
      */
     function setActiveNavItem() {
-        // Get current page identifier from filename
         var currentFile = fileName.replace('.html', '');
 
-        // Handle index
         if (currentFile === '' || currentFile === 'index') {
             currentFile = 'index';
         }
@@ -54,6 +60,23 @@
     }
 
     /**
+     * Initialize Bootstrap components in dynamically loaded content
+     */
+    function initBootstrapComponents(container) {
+        // Initialize offcanvas
+        var offcanvasEl = container.querySelector('#navbarOffcanvas');
+        if (offcanvasEl) {
+            new bootstrap.Offcanvas(offcanvasEl);
+        }
+
+        // Initialize all dropdowns
+        var dropdownEls = container.querySelectorAll('[data-bs-toggle="dropdown"]');
+        dropdownEls.forEach(function (el) {
+            new bootstrap.Dropdown(el);
+        });
+    }
+
+    /**
      * Load an HTML fragment into a placeholder element
      */
     function loadComponent(placeholderId, filePath, callback) {
@@ -68,7 +91,7 @@
             .then(function (html) {
                 placeholder.innerHTML = html;
                 resolveLinks(placeholder);
-                if (callback) callback();
+                if (callback) callback(placeholder);
             })
             .catch(function (error) {
                 console.warn('Component load error:', error.message);
@@ -78,13 +101,9 @@
 
     // Load navbar and footer when DOM is ready
     document.addEventListener('DOMContentLoaded', function () {
-        loadComponent('navbar-placeholder', 'assets/includes/navbar.html', function () {
+        loadComponent('navbar-placeholder', 'assets/includes/navbar.html', function (container) {
             setActiveNavItem();
-            // Re-initialize Bootstrap components in dynamically loaded content
-            var offcanvasEl = document.getElementById('navbarOffcanvas');
-            if (offcanvasEl) {
-                new bootstrap.Offcanvas(offcanvasEl);
-            }
+            initBootstrapComponents(container);
         });
 
         loadComponent('footer-placeholder', 'assets/includes/footer.html');

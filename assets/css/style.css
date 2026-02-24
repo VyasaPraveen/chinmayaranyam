@@ -819,6 +819,491 @@ h4 { font-size: 1.35rem; }
     font-family: Georgia, serif;
 }
 
+/* =============================================
+   DIVINE TRANSITION EFFECTS
+   ============================================= */
+
+/* === PRELOADER === */
+.preloader {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(135deg, var(--color-maroon-dark) 0%, var(--color-maroon) 100%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.preloader.fade-out {
+    opacity: 0;
+    visibility: hidden;
+}
+
+.preloader-om {
+    font-size: 4rem;
+    color: var(--color-gold);
+    animation: preloaderPulse 1.5s ease-in-out infinite, preloaderGlow 1.5s ease-in-out infinite;
+}
+
+.preloader-text {
+    font-family: var(--font-heading);
+    color: var(--color-cream);
+    font-size: 0.9rem;
+    letter-spacing: 0.3em;
+    margin-top: 1rem;
+    opacity: 0.7;
+}
+
+@keyframes preloaderPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.15); }
+}
+
+@keyframes preloaderGlow {
+    0%, 100% { text-shadow: 0 0 10px rgba(201, 162, 39, 0.3); }
+    50% { text-shadow: 0 0 30px rgba(201, 162, 39, 0.7), 0 0 60px rgba(201, 162, 39, 0.3); }
+}
+
+/* === PAGE FADE-IN === */
+.page-loaded main {
+    animation: pageFadeIn 0.8s ease-out forwards;
+}
+
+@keyframes pageFadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* === HERO HOME GRADIENT ANIMATION === */
+.hero-home {
+    background-size: 200% 200%;
+    animation: heroGradientShift 12s ease-in-out infinite;
+}
+
+@keyframes heroGradientShift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* === OM SYMBOL GOLDEN SHIMMER === */
+.hero-home .om-symbol {
+    animation: omShimmer 3s ease-in-out infinite, omFloat 6s ease-in-out infinite;
+}
+
+@keyframes omShimmer {
+    0%, 100% {
+        text-shadow: 0 0 10px rgba(201, 162, 39, 0.4),
+                     0 0 20px rgba(201, 162, 39, 0.2);
+        color: var(--color-gold);
+    }
+    50% {
+        text-shadow: 0 0 20px rgba(201, 162, 39, 0.8),
+                     0 0 40px rgba(201, 162, 39, 0.4),
+                     0 0 60px rgba(201, 162, 39, 0.2);
+        color: var(--color-gold-light);
+    }
+}
+
+@keyframes omFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-8px); }
+}
+
+/* === HERO TITLE TEXT GLOW === */
+.hero-home h1 {
+    animation: titleGlow 4s ease-in-out infinite;
+}
+
+@keyframes titleGlow {
+    0%, 100% {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+    50% {
+        text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3),
+                     0 0 20px rgba(250, 243, 224, 0.15);
+    }
+}
+
+/* === INNER HERO PARALLAX === */
+.hero-inner {
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+.hero-inner h1 {
+    animation: innerHeroReveal 1s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+@keyframes innerHeroReveal {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+        letter-spacing: 0.15em;
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+        letter-spacing: 0.05em;
+    }
+}
+
+/* === FLOATING GOLDEN PARTICLES === */
+.particles-container {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.particle {
+    position: absolute;
+    width: 4px;
+    height: 4px;
+    background: radial-gradient(circle, rgba(201, 162, 39, 0.8), transparent);
+    border-radius: 50%;
+    animation: particleFloat linear infinite;
+    opacity: 0;
+}
+
+@keyframes particleFloat {
+    0% { opacity: 0; transform: translateY(0) translateX(0); }
+    10% { opacity: 0.6; }
+    90% { opacity: 0.6; }
+    100% { opacity: 0; transform: translateY(-100vh) translateX(20px); }
+}
+
+/* === CARD GOLDEN GLOW HOVER === */
+.card-spiritual {
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                border-color 0.5s ease;
+}
+
+.card-spiritual:hover {
+    box-shadow: var(--shadow-lg), 0 0 20px rgba(201, 162, 39, 0.15);
+}
+
+.card-spiritual .card-img-top {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.card-spiritual:hover .card-img-top {
+    transform: scale(1.05);
+}
+
+.card-spiritual:hover .bi {
+    animation: iconPulse 0.6s ease-in-out;
+}
+
+@keyframes iconPulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}
+
+/* === GALLERY ENHANCED EFFECTS === */
+.gallery-grid .gallery-item img {
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                filter 0.5s ease;
+}
+
+.gallery-grid .gallery-item:hover img {
+    filter: brightness(0.85);
+}
+
+.gallery-grid .gallery-item .gallery-overlay {
+    transition: opacity 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    background: linear-gradient(135deg, rgba(123, 36, 28, 0.6) 0%, rgba(201, 162, 39, 0.3) 100%);
+}
+
+.gallery-grid .gallery-item .gallery-overlay i {
+    transform: scale(0.5);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.gallery-grid .gallery-item:hover .gallery-overlay i {
+    transform: scale(1);
+}
+
+/* === GALLERY LIGHTBOX === */
+.lightbox-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(26, 26, 26, 0.95);
+    z-index: 9998;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+    cursor: pointer;
+}
+
+.lightbox-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.lightbox-overlay img {
+    max-width: 90vw;
+    max-height: 85vh;
+    border-radius: var(--radius-md);
+    box-shadow: 0 0 40px rgba(201, 162, 39, 0.3);
+    transform: scale(0.85);
+    transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.lightbox-overlay.active img {
+    transform: scale(1);
+}
+
+.lightbox-close {
+    position: absolute;
+    top: 1.5rem;
+    right: 1.5rem;
+    color: var(--color-cream);
+    font-size: 2rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.3s ease, color 0.3s ease;
+    z-index: 9999;
+}
+
+.lightbox-close:hover {
+    transform: rotate(90deg);
+    color: var(--color-gold);
+}
+
+.lightbox-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--color-cream);
+    font-size: 2.5rem;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding: 1rem;
+}
+
+.lightbox-nav:hover { color: var(--color-gold); }
+.lightbox-prev { left: 1rem; }
+.lightbox-next { right: 1rem; }
+
+.lightbox-caption {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-cream);
+    font-family: var(--font-heading-alt);
+    font-size: 0.95rem;
+    text-align: center;
+    opacity: 0.8;
+    max-width: 80%;
+}
+
+/* === HEADING DECORATED LINE GROW === */
+.heading-decorated::after {
+    transform-origin: center;
+    transform: scaleX(0);
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.heading-decorated.animate-line::after {
+    transform: scaleX(1);
+}
+
+/* === QUOTE HOVER EFFECTS === */
+.quote-spiritual {
+    transition: box-shadow 0.5s ease, border-left-color 0.5s ease;
+}
+
+.quote-spiritual:hover {
+    box-shadow: var(--shadow-md);
+    border-left-color: var(--color-saffron);
+}
+
+.quote-spiritual::before {
+    transition: transform 0.6s ease, color 0.6s ease;
+}
+
+.quote-spiritual:hover::before {
+    transform: scale(1.15);
+    color: var(--color-saffron);
+}
+
+/* === OM DIVIDER PULSE === */
+.divider-ornament span {
+    animation: omDividerPulse 4s ease-in-out infinite;
+}
+
+@keyframes omDividerPulse {
+    0%, 100% {
+        transform: scale(1);
+        text-shadow: none;
+    }
+    50% {
+        transform: scale(1.1);
+        text-shadow: 0 0 15px rgba(201, 162, 39, 0.4);
+    }
+}
+
+.divider-ornament::before,
+.divider-ornament::after {
+    animation: lineShimmer 4s ease-in-out infinite;
+}
+
+@keyframes lineShimmer {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+}
+
+/* === BUTTON RIPPLE === */
+.btn-saffron,
+.btn-gold,
+.btn-outline-gold,
+.btn-outline-cream,
+.btn-contribute-nav {
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-ripple {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.35);
+    transform: scale(0);
+    animation: rippleEffect 0.6s ease-out forwards;
+    pointer-events: none;
+}
+
+@keyframes rippleEffect {
+    to { transform: scale(4); opacity: 0; }
+}
+
+/* === BUTTON GLOW HOVER === */
+.btn-saffron:hover {
+    box-shadow: 0 4px 15px rgba(230, 126, 34, 0.4),
+                0 0 20px rgba(230, 126, 34, 0.2);
+}
+
+.btn-outline-gold:hover {
+    box-shadow: 0 4px 15px rgba(201, 162, 39, 0.3),
+                0 0 15px rgba(201, 162, 39, 0.15);
+}
+
+.btn-contribute-nav:hover {
+    box-shadow: 0 4px 12px rgba(230, 126, 34, 0.4),
+                0 0 15px rgba(230, 126, 34, 0.2);
+}
+
+/* === COUNTER ANIMATION === */
+.counter-value {
+    display: inline-block;
+    font-variant-numeric: tabular-nums;
+}
+
+/* === TIMELINE DOT PULSE === */
+.timeline-item::before {
+    animation: timelineDotPulse 3s ease-in-out infinite;
+}
+
+@keyframes timelineDotPulse {
+    0%, 100% { box-shadow: 0 0 0 3px var(--color-gold); }
+    50% { box-shadow: 0 0 0 3px var(--color-gold), 0 0 12px rgba(201, 162, 39, 0.4); }
+}
+
+.timeline-content {
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.5s ease,
+                border-color 0.5s ease;
+}
+
+.timeline-content:hover {
+    transform: translateY(-4px);
+}
+
+/* === EVENT CARD GLOW === */
+.event-card {
+    transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.5s ease,
+                border-left-color 0.5s ease;
+}
+
+.event-card:hover {
+    border-left-color: var(--color-gold);
+    box-shadow: var(--shadow-md), 0 0 15px rgba(201, 162, 39, 0.1);
+}
+
+/* === BACK TO TOP ENHANCED === */
+#back-to-top {
+    transition: opacity 0.4s ease, visibility 0.4s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#back-to-top:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg), 0 0 15px rgba(230, 126, 34, 0.3);
+}
+
+#back-to-top.visible {
+    animation: backToTopAppear 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes backToTopAppear {
+    from { transform: scale(0) translateY(20px); opacity: 0; }
+    to { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* === NAVBAR SMOOTH TRANSITION === */
+.navbar-chinmaya {
+    transition: padding 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+                box-shadow 0.4s ease,
+                background-color 0.4s ease;
+}
+
+.navbar-chinmaya .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background-color: var(--color-gold);
+    border-radius: 1px;
+    transform: scaleX(0);
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transform-origin: center;
+}
+
+.navbar-chinmaya .nav-link:hover::after {
+    transform: scaleX(1);
+}
+
+.navbar-chinmaya .nav-link.active::after {
+    transform: scaleX(1);
+}
+
+/* === ACCESSIBILITY: REDUCED MOTION === */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    .hero-home { animation: none; background-size: cover; }
+    .particle { display: none; }
+    .preloader { display: none; }
+    .heading-decorated::after { transform: scaleX(1); }
+}
+
 /* --- Responsive --- */
 @media (max-width: 991.98px) {
     h1 { font-size: 2.25rem; }
@@ -835,6 +1320,7 @@ h4 { font-size: 1.35rem; }
 @media (max-width: 767.98px) {
     .hero-home h1 { font-size: 2.25rem; }
     .hero-home { background-attachment: scroll; }
+    .hero-inner { background-attachment: scroll; }
     .bank-details-card { padding: 1.5rem; }
     .bank-detail-row { flex-wrap: wrap; gap: 0.5rem; }
     .bank-detail-row .value { text-align: left; margin: 0; }

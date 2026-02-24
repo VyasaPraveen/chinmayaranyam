@@ -32,6 +32,13 @@
 
     /* Transitions */
     --transition-base: all 0.3s ease;
+    --transition-smooth: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-gentle: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    /* Glow Effects */
+    --glow-gold: 0 0 20px rgba(201, 162, 39, 0.3);
+    --glow-gold-strong: 0 0 40px rgba(201, 162, 39, 0.5);
+    --glow-saffron: 0 0 20px rgba(230, 126, 34, 0.3);
 
     /* Shadows */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
