@@ -193,6 +193,10 @@ h4 { font-size: 1.35rem; }
     position: relative;
     overflow: hidden;
     background-color: var(--color-maroon);
+    /* Fallback background if video doesn't load */
+    background-image: url('../images/gurudev-visits/swami-with-calf.jpg');
+    background-size: cover;
+    background-position: center top;
 }
 
 /* Hero Video Background */
