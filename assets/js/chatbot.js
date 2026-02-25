@@ -114,9 +114,8 @@
 
         document.addEventListener('click', function (e) {
             if (!isOpen) return;
-            var panel = document.getElementById('chatbot-panel');
-            var toggle = document.getElementById('chatbot-toggle');
-            if (!panel.contains(e.target) && !toggle.contains(e.target)) {
+            var widget = document.getElementById('chatbot-widget');
+            if (!widget.contains(e.target)) {
                 closePanel();
             }
         });
