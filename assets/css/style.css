@@ -209,11 +209,11 @@ h4 { font-size: 1.35rem; }
     top: 50%;
     left: 50%;
     border: 0;
-    /* Scale up so 16:9 video always covers the full hero area */
-    width: 110vw;
-    height: 110vh;
-    min-width: calc(110vh * 16 / 9);
-    min-height: calc(110vw * 9 / 16);
+    /* Cover the hero area without excessive cropping */
+    width: 100vw;
+    height: 100vh;
+    min-width: calc(100vh * 16 / 9);
+    min-height: calc(100vw * 9 / 16);
     transform: translate(-50%, -50%);
 }
 
