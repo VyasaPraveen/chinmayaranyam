@@ -206,10 +206,10 @@ h4 { font-size: 1.35rem; }
 
 .hero-video-wrapper iframe {
     position: absolute;
-    top: 50%;
+    top: 60%;
     left: 50%;
     border: 0;
-    /* Cover the hero area without excessive cropping */
+    /* Cover the hero area, shifted down to show top of video */
     width: 100vw;
     height: 100vh;
     min-width: calc(100vh * 16 / 9);
