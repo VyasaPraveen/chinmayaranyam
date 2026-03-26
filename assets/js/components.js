@@ -27,7 +27,12 @@
      */
     function resolveLinks(container) {
         container.querySelectorAll('[data-link]').forEach(function (el) {
-            el.href = basePath + '/' + el.getAttribute('data-link');
+            var link = basePath + '/' + el.getAttribute('data-link');
+            if (el.tagName === 'IMG') {
+                el.src = link;
+            } else {
+                el.href = link;
+            }
         });
     }
 
