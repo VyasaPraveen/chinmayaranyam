@@ -98,6 +98,26 @@
         }, 600);
     });
 
+    // --- YouTube click-to-play: the player loads only when a visitor taps a video ---
+    document.addEventListener('click', function (e) {
+        var facade = e.target.closest('.yt-facade');
+        if (!facade) return;
+        var id = facade.getAttribute('data-yt') || '';
+        if (!/^[A-Za-z0-9_-]{11}$/.test(id)) return; // unknown id: let the YouTube link open normally
+        e.preventDefault();
+        var iframe = document.createElement('iframe');
+        iframe.src = 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0&modestbranding=1&playsinline=1';
+        iframe.title = facade.getAttribute('data-title') || 'YouTube video';
+        iframe.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share';
+        iframe.setAttribute('allowfullscreen', '');
+        iframe.referrerPolicy = 'strict-origin-when-cross-origin';
+        var wrap = document.createElement('div');
+        wrap.className = 'ratio ratio-16x9 yt-player';
+        wrap.appendChild(iframe);
+        facade.replaceWith(wrap);
+        iframe.focus();
+    });
+
     // --- Gallery Lightbox ---
     (function initLightbox() {
         var overlay = document.createElement('div');
@@ -162,7 +182,8 @@
             items.forEach(function (item, i) {
                 var img = item.querySelector('img');
                 if (img) {
-                    gallery.push({ src: img.src, alt: img.alt || '' });
+                    // Prefer a larger image when the grid shows a thumbnail
+                    gallery.push({ src: img.getAttribute('data-full') || img.src, alt: img.alt || '' });
                     if (item === galleryItem) clickedIndex = i;
                 }
             });

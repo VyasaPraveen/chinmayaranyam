@@ -1,0 +1,96 @@
+# ============================================================
+#  Chinmayaranyam.org — Static site hardened .htaccess
+#  (Apache 2.4 / LiteSpeed).  No server-side code on this site.
+# ============================================================
+
+# === Security Headers ===
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set X-XSS-Protection "1; mode=block"
+    Header always set Strict-Transport-Security "max-age=63072000; includeSubDomains; preload"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+    Header always set Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=(), usb=(), interest-cohort=()"
+    Header always set Cross-Origin-Opener-Policy "same-origin"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com https://cdn.jsdelivr.net; img-src 'self' data: blob:; connect-src 'self'; frame-src https://www.google.com https://maps.google.com https://www.youtube.com https://www.youtube-nocookie.com; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; object-src 'none'; upgrade-insecure-requests;"
+    Header always unset X-Powered-By
+    Header always unset Server
+</IfModule>
+
+# === Force HTTPS ===
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# === Disable Directory Browsing ===
+Options -Indexes -MultiViews
+ServerSignature Off
+
+# === Custom Error Page (real 404, not a soft-200) ===
+ErrorDocument 404 /404.html
+
+# === Block ALL server-side execution (defence in depth; none exists here) ===
+<FilesMatch "\.(php|php[0-9]|phtml|pht|phar|phps|cgi|pl|py|sh|bash|exe|dll|bat|cmd|asp|aspx|jsp)$">
+    Require all denied
+</FilesMatch>
+
+# === Block sensitive / backup / dotfiles ===
+<FilesMatch "(?i)(^\.ht|\.env|\.git|\.svn|\.bak|\.old|\.orig|\.save|\.swp|\.swo|\.tmp|\.temp|\.dist|\.inc|\.log|\.sql|\.tar|\.gz|\.tgz|\.zip|\.7z|\.rar|\.pem|\.key|\.crt|~)$">
+    Require all denied
+</FilesMatch>
+<FilesMatch "(?i)^\..*">
+    Require all denied
+</FilesMatch>
+RedirectMatch 403 (?i)/\.(?!well-known)
+
+# === Block WordPress / common probe paths (this is not a WP site) ===
+<IfModule mod_rewrite.c>
+    RewriteRule ^(wp-admin|wp-login|wp-content|wp-includes|wp-json|xmlrpc|admin\.php|wp-config) - [F,L]
+    RewriteRule \.(php|sh|bash|cgi|pl|py|exe|dll|bat|cmd|asp|aspx|jsp)$ - [F,L]
+
+    # Block XSS / SQLi probes in query strings
+    RewriteCond %{QUERY_STRING} (<script|%3Cscript|javascript:|onload=|onerror=|onmouseover=) [NC,OR]
+    RewriteCond %{QUERY_STRING} (union[\s+]+select|insert[\s+]+into|drop[\s+]+table|concat\(|information_schema|benchmark\(|sleep\() [NC,OR]
+    RewriteCond %{QUERY_STRING} (\.\./|\.\.%2f|/etc/passwd|boot\.ini|base64_|eval\() [NC]
+    RewriteRule .* - [F,L]
+
+    # Block known scanning / attack tools
+    RewriteCond %{HTTP_USER_AGENT} (havij|sqlmap|nikto|netsparker|acunetix|nmap|masscan|dirbuster|gobuster|nuclei|fimap|wpscan|zgrab|libwww-perl) [NC]
+    RewriteRule .* - [F,L]
+
+    # Block risky HTTP methods
+    RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK|DELETE|PUT|PATCH|CONNECT)$ [NC]
+    RewriteRule .* - [F,L]
+</IfModule>
+
+# === Cache Static Assets ===
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType image/jpeg "access plus 1 month"
+    ExpiresByType image/png "access plus 1 month"
+    ExpiresByType image/webp "access plus 1 month"
+    ExpiresByType image/svg+xml "access plus 1 month"
+    ExpiresByType image/x-icon "access plus 1 year"
+    ExpiresByType text/css "access plus 1 week"
+    ExpiresByType application/javascript "access plus 1 week"
+    ExpiresByType text/html "access plus 1 hour"
+</IfModule>
+<IfModule mod_headers.c>
+    <FilesMatch "\.(jpg|jpeg|png|webp|gif|svg|ico|css|js|woff2?|ttf|eot)$">
+        Header set Cache-Control "public, max-age=2592000"
+    </FilesMatch>
+    <FilesMatch "\.html$">
+        Header set Cache-Control "no-cache, must-revalidate"
+    </FilesMatch>
+</IfModule>
+
+# === GZIP / Deflate ===
+<IfModule mod_deflate.c>
+    AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml \
+        text/javascript application/javascript application/json image/svg+xml
+</IfModule>
+
+# === Default charset ===
+AddDefaultCharset UTF-8

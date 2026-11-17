@@ -257,11 +257,16 @@
         createChatbotDOM();
         showNode('welcome');
 
-        // Auto-open after 3s on first visit in this session
+        // Auto-open after 3s on first visit in this session — desktop only.
+        // On phones the panel would cover most of the screen, so there the
+        // toggle button + badge invite the visitor to open it themselves.
+        var isSmallScreen = window.matchMedia && window.matchMedia('(max-width: 767.98px)').matches;
         if (!sessionStorage.getItem('chatbot_opened')) {
-            setTimeout(function () {
-                openPanel();
-            }, 3000);
+            if (!isSmallScreen) {
+                setTimeout(function () {
+                    openPanel();
+                }, 3000);
+            }
         } else {
             // Already opened before, hide badge
             var badge = document.getElementById('chatbot-badge');
